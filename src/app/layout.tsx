@@ -3,6 +3,7 @@ import { Inter as FontSans } from "next/font/google";
 
 import { cn } from "@/lib/utils";
 import { StoreProvider } from "./store/StoreProvider";
+import Script from "next/script";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -15,6 +16,20 @@ export default function RootLayout({
   return (
     <StoreProvider>
       <html lang="en" suppressHydrationWarning={true} className="h-full">
+        <head>
+          <Script
+            strategy="lazyOnload"
+            src="https://www.googletagmanager.com/gtag/js?id=G-65E07LKQJ0"
+          ></Script>
+          <Script id="" strategy="lazyOnload">
+            {`  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-65E07LKQJ0');`}
+          </Script>
+        </head>
+
         <body
           className={cn(
             " font-sans antialiased h-full flex flex-col",
