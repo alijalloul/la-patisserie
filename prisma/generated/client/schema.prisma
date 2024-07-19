@@ -25,14 +25,13 @@ model Product {
 }
 
 model User {
-  id          String   @id @default(uuid())
-  email       String   @unique
-  password    String
-  phonenumber String   @unique
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  verified Boolean @default(false)
+  isVerified Boolean @default(false)
 
   // orders Order[]
 }
@@ -62,8 +61,8 @@ model ProductOrder {
 
 model VerificationToken {
   id      String   @id @default(uuid())
-  email   String
-  token   String
+  email   String   @unique
+  token   String   @unique
   expires DateTime
 
   @@unique([email, token])

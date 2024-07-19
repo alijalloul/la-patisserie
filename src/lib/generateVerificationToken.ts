@@ -1,4 +1,4 @@
-import { getVerificationTokenByEmail } from "@/app/(customerFacing)/auth/actions";
+import { getVerificationTokenByEmail } from "@/app/(customerFacing)/auth/authentication";
 import db from "@/db/db";
 import { v4 } from "uuid";
 

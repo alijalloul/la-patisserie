@@ -134,10 +134,9 @@ exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
   password: 'password',
-  phonenumber: 'phonenumber',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  verified: 'verified'
+  isVerified: 'isVerified'
 };
 
 exports.Prisma.OrderScalarFieldEnum = {

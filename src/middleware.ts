@@ -1,43 +1,39 @@
-import NextAuth from "next-auth";
+import { NextRequest, NextResponse } from "next/server";
 
-import authConfig from "@/auth.config";
-import {
-  publicRoutes,
-  apiAuthRoute,
-  authRoutes,
-  defaultLoginRedirect,
-} from "@/routes";
-import { NextResponse } from "next/server";
+async function hashPassword(password: string) {
+  const arrayBuffer = await crypto.subtle.digest(
+    "SHA-512",
+    new TextEncoder().encode(password)
+  );
 
-const { auth } = NextAuth(authConfig);
+  return Buffer.from(arrayBuffer).toString("base64");
+}
 
-export default auth((req) => {
-  const { nextUrl } = req;
-  const isLoggedIn = !!req.auth;
+async function isAuthenticated(req: NextRequest) {
+  const authHeader = req.headers.get("authorization");
+  if (!authHeader) return false;
 
-  const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthRoute);
-  const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
-  const isAuthRoute = authRoutes.includes(nextUrl.pathname);
+  const [username, password] = Buffer.from(authHeader.split(" ")[1], "base64")
+    .toString()
+    .split(":");
 
-  if (isApiAuthRoute) {
-    return;
+  const hashedPassword = await hashPassword(password);
+
+  return (
+    username === process.env.ADMIN_USERNAME &&
+    hashedPassword === process.env.HASHED_ADMIN_PASSWORD
+  );
+}
+
+export async function middleware(req: NextRequest) {
+  if (!(await isAuthenticated(req))) {
+    return new NextResponse("Unauthorized", {
+      status: 401,
+      headers: { "WWW-Authenticate": "Basic" },
+    });
   }
-
-  if (isAuthRoute) {
-    if (isLoggedIn) {
-      return NextResponse.redirect(new URL(defaultLoginRedirect, nextUrl));
-    }
-
-    return;
-  }
-
-  if (!isLoggedIn && !isPublicRoute) {
-    return NextResponse.redirect(new URL("/auth", nextUrl));
-  }
-
-  return;
-});
+}
 
 export const config = {
-  matcher: ["/auth", "/settings"],
+  matcher: "/admin/:path*",
 };

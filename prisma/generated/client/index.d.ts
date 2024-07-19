@@ -2341,30 +2341,27 @@ export namespace Prisma {
     id: string | null
     email: string | null
     password: string | null
-    phonenumber: string | null
     createdAt: Date | null
     updatedAt: Date | null
-    verified: boolean | null
+    isVerified: boolean | null
   }
 
   export type UserMaxAggregateOutputType = {
     id: string | null
     email: string | null
     password: string | null
-    phonenumber: string | null
     createdAt: Date | null
     updatedAt: Date | null
-    verified: boolean | null
+    isVerified: boolean | null
   }
 
   export type UserCountAggregateOutputType = {
     id: number
     email: number
     password: number
-    phonenumber: number
     createdAt: number
     updatedAt: number
-    verified: number
+    isVerified: number
     _all: number
   }
 
@@ -2373,30 +2370,27 @@ export namespace Prisma {
     id?: true
     email?: true
     password?: true
-    phonenumber?: true
     createdAt?: true
     updatedAt?: true
-    verified?: true
+    isVerified?: true
   }
 
   export type UserMaxAggregateInputType = {
     id?: true
     email?: true
     password?: true
-    phonenumber?: true
     createdAt?: true
     updatedAt?: true
-    verified?: true
+    isVerified?: true
   }
 
   export type UserCountAggregateInputType = {
     id?: true
     email?: true
     password?: true
-    phonenumber?: true
     createdAt?: true
     updatedAt?: true
-    verified?: true
+    isVerified?: true
     _all?: true
   }
 
@@ -2476,10 +2470,9 @@ export namespace Prisma {
     id: string
     email: string
     password: string
-    phonenumber: string
     createdAt: Date
     updatedAt: Date
-    verified: boolean
+    isVerified: boolean
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -2503,30 +2496,27 @@ export namespace Prisma {
     id?: boolean
     email?: boolean
     password?: boolean
-    phonenumber?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    verified?: boolean
+    isVerified?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     email?: boolean
     password?: boolean
-    phonenumber?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    verified?: boolean
+    isVerified?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
     id?: boolean
     email?: boolean
     password?: boolean
-    phonenumber?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    verified?: boolean
+    isVerified?: boolean
   }
 
 
@@ -2537,10 +2527,9 @@ export namespace Prisma {
       id: string
       email: string
       password: string
-      phonenumber: string
       createdAt: Date
       updatedAt: Date
-      verified: boolean
+      isVerified: boolean
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -2963,10 +2952,9 @@ export namespace Prisma {
     readonly id: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
-    readonly phonenumber: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
-    readonly verified: FieldRef<"User", 'Boolean'>
+    readonly isVerified: FieldRef<"User", 'Boolean'>
   }
     
 
@@ -6129,10 +6117,9 @@ export namespace Prisma {
     id: 'id',
     email: 'email',
     password: 'password',
-    phonenumber: 'phonenumber',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    verified: 'verified'
+    isVerified: 'isVerified'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -6334,43 +6321,39 @@ export namespace Prisma {
     id?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
-    phonenumber?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
-    verified?: BoolFilter<"User"> | boolean
+    isVerified?: BoolFilter<"User"> | boolean
   }
 
   export type UserOrderByWithRelationInput = {
     id?: SortOrder
     email?: SortOrder
     password?: SortOrder
-    phonenumber?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    verified?: SortOrder
+    isVerified?: SortOrder
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     email?: string
-    phonenumber?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     password?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
-    verified?: BoolFilter<"User"> | boolean
-  }, "id" | "email" | "phonenumber">
+    isVerified?: BoolFilter<"User"> | boolean
+  }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
     email?: SortOrder
     password?: SortOrder
-    phonenumber?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    verified?: SortOrder
+    isVerified?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -6383,10 +6366,9 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"User"> | string
     email?: StringWithAggregatesFilter<"User"> | string
     password?: StringWithAggregatesFilter<"User"> | string
-    phonenumber?: StringWithAggregatesFilter<"User"> | string
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
-    verified?: BoolWithAggregatesFilter<"User"> | boolean
+    isVerified?: BoolWithAggregatesFilter<"User"> | boolean
   }
 
   export type OrderWhereInput = {
@@ -6514,14 +6496,14 @@ export namespace Prisma {
 
   export type VerificationTokenWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    email?: string
+    token?: string
     email_token?: VerificationTokenEmailTokenCompoundUniqueInput
     AND?: VerificationTokenWhereInput | VerificationTokenWhereInput[]
     OR?: VerificationTokenWhereInput[]
     NOT?: VerificationTokenWhereInput | VerificationTokenWhereInput[]
-    email?: StringFilter<"VerificationToken"> | string
-    token?: StringFilter<"VerificationToken"> | string
     expires?: DateTimeFilter<"VerificationToken"> | Date | string
-  }, "id" | "email_token">
+  }, "id" | "email" | "token" | "email_token">
 
   export type VerificationTokenOrderByWithAggregationInput = {
     id?: SortOrder
@@ -6628,70 +6610,63 @@ export namespace Prisma {
     id?: string
     email: string
     password: string
-    phonenumber: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    verified?: boolean
+    isVerified?: boolean
   }
 
   export type UserUncheckedCreateInput = {
     id?: string
     email: string
     password: string
-    phonenumber: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    verified?: boolean
+    isVerified?: boolean
   }
 
   export type UserUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    phonenumber?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    verified?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type UserUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    phonenumber?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    verified?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type UserCreateManyInput = {
     id?: string
     email: string
     password: string
-    phonenumber: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    verified?: boolean
+    isVerified?: boolean
   }
 
   export type UserUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    phonenumber?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    verified?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type UserUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    phonenumber?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    verified?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type OrderCreateInput = {
@@ -6997,30 +6972,27 @@ export namespace Prisma {
     id?: SortOrder
     email?: SortOrder
     password?: SortOrder
-    phonenumber?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    verified?: SortOrder
+    isVerified?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
     password?: SortOrder
-    phonenumber?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    verified?: SortOrder
+    isVerified?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
     password?: SortOrder
-    phonenumber?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    verified?: SortOrder
+    isVerified?: SortOrder
   }
 
   export type OrderCountOrderByAggregateInput = {

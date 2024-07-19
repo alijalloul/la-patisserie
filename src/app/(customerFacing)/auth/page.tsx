@@ -4,28 +4,19 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import {
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSlot,
-} from "@/components/ui/input-otp";
-import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import CustomeInput from "./_components/CustomeInput"; // Adjust the import path according to your file structure
 
 const Authentication = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     repassword: "",
-    phonenumber: "",
-    verificationCode: "",
   });
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -37,30 +28,65 @@ const Authentication = () => {
     }));
   }
 
-  useEffect(() => {
-    console.log(formData);
-  }, [formData]);
+  async function handleSignup({
+    email,
+    password,
+    repassword,
+  }: {
+    email: string;
+    password: string;
+    repassword: string;
+  }) {
+    if (password !== repassword) {
+      alert("Passwords do not match!");
+      return;
+    }
 
-  function handleVerify() {}
+    try {
+      const response = await fetch("/api/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
-  async function handleSignUp() {
-    const data = await fetch("/api/auth/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
+      if (response.ok) {
+        alert("Signup successful. Please check your email for verification.");
+      } else {
+        alert("Signup failed.");
+      }
+    } catch (error) {
+      console.error("Error during signup:", error);
+      alert("Signup failed.");
+    }
   }
 
-  async function handleLogIn() {
-    // const data = await fetch("/api/auth/login", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(formData),
-    // });
+  async function handleLogin({
+    email,
+    password,
+  }: {
+    email: string;
+    password: string;
+  }) {
+    try {
+      const response = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (response.ok) {
+        alert("Login successful.");
+      } else {
+        alert("Invalid credentials or email not verified.");
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+      alert("Login failed.");
+    }
   }
 
   return (
@@ -77,94 +103,36 @@ const Authentication = () => {
               <CardTitle>Sign Up</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
-              <div className="space-y-1">
-                <Label htmlFor="email">E-Mail</Label>
-                <Input
-                  type="email"
-                  id="email"
-                  placeholder="la.patisserie@gmail.com"
-                  required
-                  onChange={handleChange}
-                />
-              </div>
+              <CustomeInput
+                htmlFor="email"
+                text="E-Mail"
+                isPassword={false}
+                id="email"
+                placeholder="la.patisserie@gmail.com"
+                onChange={handleChange}
+              />
 
-              <div className="space-y-1">
-                <Label htmlFor="password">Password</Label>
-                <Input
-                  type="password"
-                  id="password"
-                  placeholder="12345"
-                  required
-                  onChange={handleChange}
-                />
-              </div>
+              <CustomeInput
+                htmlFor="password"
+                text="Password"
+                isPassword={true}
+                id="password"
+                placeholder="12345"
+                onChange={handleChange}
+              />
 
-              <div className="space-y-1">
-                <Label htmlFor="repassword">Re-Password</Label>
-                <Input
-                  type="password"
-                  id="repassword"
-                  placeholder="12345"
-                  required
-                  onChange={handleChange}
-                />
-              </div>
-
-              <div className="space-y-1">
-                <Label htmlFor="phonenumber">Phone Number</Label>
-                <Input
-                  type="number"
-                  id="phonenumber"
-                  placeholder="76453164"
-                  required
-                  onChange={handleChange}
-                />
-              </div>
-
-              <div className="space-y-1">
-                <Label htmlFor="verificationContainer">Verification Code</Label>
-
-                <div id="verificationContainer" className="flex items-center">
-                  <InputOTP
-                    maxLength={6}
-                    required
-                    value={formData.verificationCode}
-                    onChange={(value) =>
-                      setFormData((prevData) => ({
-                        ...prevData,
-                        verificationCode: value,
-                      }))
-                    }
-                  >
-                    <InputOTPGroup>
-                      <InputOTPSlot index={0} />
-                      <InputOTPSlot index={1} />
-                      <InputOTPSlot index={2} />
-                      <InputOTPSlot index={3} />
-                    </InputOTPGroup>
-                  </InputOTP>
-
-                  <Button
-                    onClick={() => {
-                      handleVerify();
-                    }}
-                    type="submit"
-                    variant="secondary"
-                    className="ml-3"
-                  >
-                    Verify
-                  </Button>
-                </div>
-              </div>
+              <CustomeInput
+                htmlFor="repassword"
+                text="Re-Password"
+                isPassword={true}
+                id="repassword"
+                placeholder="12345"
+                onChange={handleChange}
+              />
             </CardContent>
 
             <CardFooter>
-              <Button
-                onClick={() => {
-                  handleSignUp();
-                }}
-                type="submit"
-              >
+              <Button onClick={() => handleSignup(formData)} type="submit">
                 Sign Up
               </Button>
             </CardFooter>
@@ -177,17 +145,28 @@ const Authentication = () => {
               <CardTitle>Log In</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
-              <div className="space-y-1">
-                <Label htmlFor="phonenumber">Phone number</Label>
-                <Input id="phonenumber" type="number" onChange={handleChange} />
-              </div>
-              <div className="space-y-1">
-                <Label htmlFor="password">Password</Label>
-                <Input id="password" type="password" onChange={handleChange} />
-              </div>
+              <CustomeInput
+                htmlFor="email"
+                text="E-Mail"
+                isPassword={false}
+                id="email"
+                placeholder="la.patisserie@gmail.com"
+                onChange={handleChange}
+              />
+
+              <CustomeInput
+                htmlFor="password"
+                text="Password"
+                isPassword={true}
+                id="password"
+                placeholder="12345"
+                onChange={handleChange}
+              />
             </CardContent>
             <CardFooter>
-              <Button onClick={handleLogIn}>Log In</Button>
+              <Button onClick={() => handleLogin(formData)} type="submit">
+                Log In
+              </Button>
             </CardFooter>
           </Card>
         </TabsContent>
