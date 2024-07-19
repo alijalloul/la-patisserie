@@ -4,7 +4,7 @@ import db from "@/db/db";
 
 const JWT_SECRET = process.env.JWT_SECRET as string;
 
-export async function verifyEmail(token: string) {
+async function verifyEmail(token: string) {
   try {
     const decoded = jwt.verify(token, JWT_SECRET) as { userId: string };
     await db.user.update({
