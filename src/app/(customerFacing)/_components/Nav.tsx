@@ -63,8 +63,8 @@ export const NormalNav = ({ children }: { children: ReactNode }) => {
       <div className="flex justify-center items-center space-x-5">
         <CartSlide />
 
-        <Button variant="outline" onClick={() => signOut()}>
-          Log Out
+        <Button variant="outline" asChild>
+          <Link href="/auth">Sign Up</Link>
         </Button>
       </div>
     </>
