@@ -4,6 +4,7 @@ import { Inter as FontSans } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { StoreProvider } from "./store/StoreProvider";
 import Script from "next/script";
+import Footer from "./(customerFacing)/_components/Footer";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -15,7 +16,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <StoreProvider>
-      <html lang="en" suppressHydrationWarning={true} className="h-full">
+      <html lang="en" suppressHydrationWarning={true}>
         <head>
           <Script
             strategy="lazyOnload"
@@ -38,6 +39,8 @@ export default function RootLayout({
         >
           {children}
         </body>
+
+        <Footer />
       </html>
     </StoreProvider>
   );
