@@ -1,0 +1,69 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+
+  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model Product {
+  id                     String   @id @default(uuid())
+  name                   String
+  priceInCents           Int
+  image                  Bytes
+  description            String
+  isAvailableForPurchase Boolean
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
+
+  orders ProductOrder[]
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  isVerified Boolean @default(false)
+
+  // orders Order[]
+}
+
+model Order {
+  id               String   @id @default(uuid())
+  pricePaidInCents Int
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  userId             String
+  productsIdQuantity String
+
+  // user     User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  products ProductOrder[]
+}
+
+model ProductOrder {
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Restrict)
+
+  orderId String
+  order   Order  @relation(fields: [orderId], references: [id])
+
+  @@id([productId, orderId])
+}
+
+model VerificationToken {
+  id      String   @id @default(uuid())
+  email   String   @unique
+  token   String   @unique
+  expires DateTime
+
+  @@unique([email, token])
+}

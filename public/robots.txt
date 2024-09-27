@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /api/
+Disallow: /_next/image/
+Disallow: /protected/
+Disallow: /admin/
+Disallow: /favicon.ico
