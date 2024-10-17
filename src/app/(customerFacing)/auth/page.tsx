@@ -1,29 +1,39 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { useCookies } from "next-client-cookies";
-import { useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import CustomeInput from "./_components/CustomeInput";
 
-const page = () => {
+// Define form data and errors types
+interface FormData {
+  fn: string;
+  ln: string;
+  email: string;
+  password: string;
+  repassword: string;
+}
+
+interface FormErrors {
+  fn: string;
+  ln: string;
+  email: string;
+  password: string;
+  repassword: string;
+}
+
+const Page = () => {
   const { toast } = useToast();
   const cookies = useCookies();
 
   const token = cookies.get("token");
+  const contentRef = useRef<HTMLDivElement | null>(null);
 
-  const [height, setHeight] = useState();
-  const contentRef = useRef(null);
-
-  const [formData, setFormData] = useState({
+  const [height, setHeight] = useState<string | undefined>();
+  const [formData, setFormData] = useState<FormData>({
     fn: "",
     ln: "",
     email: "",
@@ -31,7 +41,7 @@ const page = () => {
     repassword: "",
   });
 
-  const [formErrors, setFormErrors] = useState({
+  const [formErrors, setFormErrors] = useState<FormErrors>({
     fn: "",
     ln: "",
     email: "",
@@ -42,11 +52,16 @@ const page = () => {
   const isLoggedIn = !!token;
 
   const changeHeight = () => {
-    const contentHeight = contentRef.current.scrollHeight + "px";
-    setHeight(contentHeight);
+    if (contentRef.current) {
+      const contentHeight = contentRef.current.scrollHeight + "px";
+      setHeight(contentHeight);
+    }
   };
 
-  function handleChange(e) {
+  useEffect(() => {changeHeight()}, [])
+
+
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const { id, value } = e.target;
 
     setFormData((prevData) => ({
@@ -66,7 +81,7 @@ const page = () => {
   }
 
   function validateForm() {
-    const errors = {};
+    const errors: Partial<FormErrors> = {};
 
     if (!formData.fn) {
       errors.fn = "First name is required";
@@ -88,11 +103,11 @@ const page = () => {
       errors.repassword = "Passwords do not match";
     }
 
-    setFormErrors(errors);
+    setFormErrors(errors as FormErrors);
     return Object.keys(errors).length === 0;
   }
 
-  async function handleSignup(formData) {
+  async function handleSignup() {
     if (!validateForm()) return;
 
     try {
@@ -130,7 +145,7 @@ const page = () => {
     }
   }
 
-  async function handleLogin(formData) {
+  async function handleLogin() {
     try {
       const response = await fetch("/api/login", {
         method: "POST",
@@ -143,7 +158,6 @@ const page = () => {
       if (response.ok) {
         toast({
           dataId: "loginsuccess",
-
           className: "bg-green-500 text-white",
           title: "Log In successful!",
         });
@@ -153,7 +167,6 @@ const page = () => {
         const data = await response.json();
         toast({
           dataId: "loginerror",
-
           variant: "destructive",
           title: data.error,
         });
@@ -161,7 +174,6 @@ const page = () => {
     } catch (error) {
       toast({
         dataId: "loginfailed",
-
         variant: "destructive",
         title: "Uh oh! Something went wrong.",
         description: "There was a problem with your request.",
@@ -184,7 +196,7 @@ const page = () => {
   }
 
   return (
-    <div className="w-full h-full flex flex-col justify-center items-center">
+    <div className="w-full h-full flex flex-col justify-center items-center ">
       {isLoggedIn ? (
         <>
           <p className="mb-4 text-lg">You are logged in.</p>
@@ -193,10 +205,7 @@ const page = () => {
           </Button>
         </>
       ) : (
-        <Tabs
-          defaultValue="signup"
-          className="w-[35%] h-[55%] md:w-[50%] sm:w-[90%]"
-        >
+        <Tabs defaultValue="signup" className="w-[35%]  md:w-[50%] sm:w-[90%]">
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="signup" onClick={changeHeight}>
               Sign Up
@@ -207,7 +216,7 @@ const page = () => {
           </TabsList>
 
           <div
-            className="mt-2 rounded-lg border bg-card text-card-foreground shadow-sm transition-all duration-500 ease-in-out overflow-hidden border-gray-300"
+            className="mt-2 rounded-lg border bg-card text-card-foreground shadow-sm transition-all duration-500 ease-in-out overflow-hidden border-gray-300 h-0"
             style={{ height }}
           >
             <div ref={contentRef}>
@@ -278,11 +287,7 @@ const page = () => {
                   </CardContent>
 
                   <CardFooter>
-                    <Button
-                      id="signupButton"
-                      onClick={() => handleSignup(formData)}
-                      type="submit"
-                    >
+                    <Button id="signupButton" onClick={handleSignup} type="submit">
                       Sign Up
                     </Button>
                   </CardFooter>
@@ -314,15 +319,10 @@ const page = () => {
                       onChange={handleChange}
                       value={formData.password}
                       error={formErrors.password}
-                      r
                     />
                   </CardContent>
                   <CardFooter>
-                    <Button
-                      id="loginButton"
-                      onClick={() => handleLogin(formData)}
-                      type="submit"
-                    >
+                    <Button id="loginButton" onClick={handleLogin} type="submit">
                       Log In
                     </Button>
                   </CardFooter>
@@ -336,4 +336,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

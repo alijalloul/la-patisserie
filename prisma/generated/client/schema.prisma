@@ -15,7 +15,7 @@ model Product {
   id                     String   @id @default(uuid())
   name                   String
   priceInCents           Int
-  image                  Bytes
+  image                  String
   description            String
   isAvailableForPurchase Boolean
   createdAt              DateTime @default(now())
@@ -26,6 +26,8 @@ model Product {
 
 model User {
   id        String   @id @default(uuid())
+  firstName String?
+  lastName  String?
   email     String   @unique
   password  String
   createdAt DateTime @default(now())

@@ -33,7 +33,7 @@ export default function RootLayout({
 
         <body
           className={cn(
-            " font-sans antialiased min-h-screen",
+            " font-sans antialiased min-h-screen flex",
             fontSans.variable
           )}
         >
