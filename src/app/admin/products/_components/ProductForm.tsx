@@ -1,14 +1,14 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import React, { ChangeEvent, useState } from "react";
-import { addProduct, editProduct } from "../../_actions/products";
-import { useFormState, useFormStatus } from "react-dom";
-import { Button } from "@/components/ui/button";
 import { Product } from "@prisma/client";
 import Image from "next/image";
+import { ChangeEvent, useState } from "react";
+import { useFormState, useFormStatus } from "react-dom";
+import { addProduct, editProduct } from "../../_actions/products";
 
 const ProductForm = ({ product }: { product?: Product | null }) => {
   const [error, action] = useFormState(
@@ -16,7 +16,7 @@ const ProductForm = ({ product }: { product?: Product | null }) => {
     {}
   );
   const [priceInCents, setPriceInCents] = useState(product?.priceInCents);
-  const [image, setImage] = useState<string | null>(`data:image/jpeg;base64,${product?.image}` || null);
+  const [image, setImage] = useState<string | null>(product?.image || null);
 
   const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
     const selectedImage = event.target.files?.[0];

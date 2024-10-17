@@ -4,17 +4,16 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ComponentProps, ReactNode, useEffect, useState } from "react";
 
-import { cn } from "../../../lib/utils";
-import { AlignRight } from "lucide-react";
-import CartSlide from "./CartSlide";
+import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetClose,
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
-import { signOut } from "next-auth/react";
+import { AlignRight } from "lucide-react";
+import { cn } from "../../../lib/utils";
+import CartSlide from "./CartSlide";
 
 const Nav = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -35,7 +34,7 @@ const Nav = () => {
   }, []);
 
   return (
-    <header className="relative z-10 w-full py-8 px-20 flex justify-between items-center min-sm:px-10">
+    <header className="relative z-10 w-full py-5 px-20 flex justify-between items-center min-sm:px-10 hover:bg-gray-50 transition-all ease-in-out duration-700">
       <Link href="/">La Patisserie</Link>
       {isMobile ? (
         <MobileNav>

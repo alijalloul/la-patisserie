@@ -6,7 +6,27 @@ import {
   notFound,
   redirect,
 } from "next/navigation";
+import sharp from "sharp";
 import { z } from "zod";
+
+const compressBase64Image = async (arrayBuffer: ArrayBuffer) => {
+  if (arrayBuffer) {
+
+    const imageBuffer = Buffer.from(arrayBuffer);
+
+    const compressedBuffer = await sharp(imageBuffer)
+      .resize({ width: 512 })
+      .jpeg({ quality: 50 })
+      .toBuffer();
+
+    const compressedBase64 = compressedBuffer.toString("base64");
+    
+
+    return `data:image/jpeg;base64,${compressedBase64}`;
+  } else {
+    return "";
+  }
+};
 
 const addSchema = z.object({
   name: z.string().min(1),
@@ -32,9 +52,8 @@ export const addProduct = async (
   // Read the image file as a buffer
   const arrayBuffer =
     await data.image.arrayBuffer();
-  const imageBuffer = Buffer.from(arrayBuffer);
   const base64Image =
-    imageBuffer.toString("base64");
+    await compressBase64Image(arrayBuffer)
 
   console.log(
     "Adding product with image buffer size:",
@@ -81,11 +100,12 @@ export const editProduct = async (
 
   let base64Image: string;
   if (data.image) {
+
     const arrayBuffer =
     await data.image.arrayBuffer();
-  const imageBuffer = Buffer.from(arrayBuffer);
-   base64Image =
-    imageBuffer.toString("base64");
+  base64Image =
+    await compressBase64Image(arrayBuffer)
+
   } else {
     base64Image = product.image; // Retain the old image if no new image is provided
     console.log(

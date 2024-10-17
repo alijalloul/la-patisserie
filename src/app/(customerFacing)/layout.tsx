@@ -1,5 +1,5 @@
-import Nav from "./_components/Nav";
 import { Toaster } from "@/components/ui/toaster";
+import Nav from "./_components/Nav";
 
 export const dynamic = "force-dynamic";
 
@@ -9,11 +9,13 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   return (
-    <>
+    <div className="h-full flex flex-col">
       <Nav />
 
-      <div className=" mx-10 lg:mx-20 flex-grow">{children}</div>
+      <div className="flex justify-center flex-1 ">
+        <div className=" w-[90%] ">{children}</div>
+      </div>
       <Toaster />
-    </>
+    </div>
   );
 }

@@ -1,10 +1,10 @@
-import "./globals.css";
 import { Inter as FontSans } from "next/font/google";
+import "./globals.css";
 
 import { cn } from "@/lib/utils";
-import { StoreProvider } from "./store/StoreProvider";
 import Script from "next/script";
 import Footer from "./(customerFacing)/_components/Footer";
+import { StoreProvider } from "./store/StoreProvider";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -33,7 +33,7 @@ export default function RootLayout({
 
         <body
           className={cn(
-            " font-sans antialiased flex flex-col",
+            " font-sans antialiased min-h-screen",
             fontSans.variable
           )}
         >

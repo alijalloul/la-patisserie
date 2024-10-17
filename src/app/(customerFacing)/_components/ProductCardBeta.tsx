@@ -6,11 +6,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Product } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 import AddCartButton from "./AddCartButton";
-import { Product } from "@prisma/client";
 
 export const ProductCardBeta = ({ product }: { product: Product }) => {
   
@@ -23,7 +22,7 @@ export const ProductCardBeta = ({ product }: { product: Product }) => {
         >
           <Image
             sizes="800px"
-            src={`data:image/jpeg;base64,${product.image}`}
+            src={product.image}
             alt={product.name}
             fill
             className="object-cover hover:brightness-[.6] hover:scale-110 transition-all duration-400"
