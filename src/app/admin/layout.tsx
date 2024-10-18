@@ -8,7 +8,7 @@ export default function AdminLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <>
+    <div className=" flex-grow flex flex-col">
       <AdminNav>
         <AdminNavLink href="/admin">Dashboard</AdminNavLink>
         <AdminNavLink href="/admin/products">Products</AdminNavLink>
@@ -17,6 +17,6 @@ export default function AdminLayout({
       </AdminNav>
 
       <div className="container my-6">{children}</div>
-    </>
+    </div>
   );
 }
