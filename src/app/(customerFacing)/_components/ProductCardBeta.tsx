@@ -21,7 +21,7 @@ export const ProductCardBeta = ({ product }: { product: Product }) => {
           href={`/products/${product.id}`}
         >
           <Image
-            sizes="800px"
+            
             src={product.image}
             alt={product.name}
             fill
@@ -29,19 +29,19 @@ export const ProductCardBeta = ({ product }: { product: Product }) => {
           />
         </Link>
 
-        <p className="absolute drop-shadow-lg w-full text-white px-5 opacity-0 transition-all duration-300 group-hover:opacity-100 pointer-events-none">
+        <p className="absolute drop-shadow-lg w-full text-white px-5 opacity-0 transition-all duration-300 group-hover:opacity-100 pointer-events-none sm:text-xs">
           {product.description}
         </p>
       </div>
 
-      <CardHeader className="flex-grow">
-        <CardTitle>{product.name}</CardTitle>
-        <CardDescription>
+      <CardHeader className="flex-grow sm:p-2">
+        <CardTitle className="sm:text-lg">{product.name}</CardTitle>
+        <CardDescription className="sm:text-sm">
           {`${(product.priceInCents / 100).toLocaleString()} $`}
         </CardDescription>
       </CardHeader>
 
-      <CardFooter className="flex justify-between">
+      <CardFooter className="flex justify-between sm:p-2">
         <Button asChild variant="outline" size="lg" className="w-[40%]">
           <Link href={`/products/${product.id}`}>View</Link>
         </Button>

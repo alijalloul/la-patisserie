@@ -18,7 +18,7 @@ const Page = async ({ params: { id } }: { params: { id: string } }) => {
       <div className="flex w-full">
         <div className="relative w-full lg:w-[400px] aspect-[5/6] rounded-lg rounded-r-none overflow-hidden">
           <Image
-            sizes="800px"
+            
             src={product.image}
             alt={product.name}
             fill

@@ -34,21 +34,23 @@ const Nav = () => {
   }, []);
 
   return (
-    <header className="relative z-10 w-full py-5 px-20 flex justify-between items-center min-sm:px-10 hover:bg-gray-50 transition-all ease-in-out duration-700">
-      <Link href="/">La Patisserie</Link>
-      {isMobile ? (
-        <MobileNav>
-          <MobileNavLink href="/">Home</MobileNavLink>
-          <MobileNavLink href="/products">Products</MobileNavLink>
-          <MobileNavLink href="/contact">Contact Us</MobileNavLink>
-        </MobileNav>
-      ) : (
-        <NormalNav>
-          <NavLink href="/">Home</NavLink>
-          <NavLink href="/products">Products</NavLink>
-          <NavLink href="/contact">Contact Us</NavLink>
-        </NormalNav>
-      )}
+    <header className="relative z-10  w-full py-5 flex justify-center items-center hover:bg-gray-50 transition-all ease-in-out duration-700">
+      <div className="w-[90%] flex justify-between items-center  ">
+        <Link href="/">La Patisserie</Link>
+        {isMobile ? (
+          <MobileNav>
+            <MobileNavLink href="/">Home</MobileNavLink>
+            <MobileNavLink href="/products">Products</MobileNavLink>
+            <MobileNavLink href="/contact">Contact Us</MobileNavLink>
+          </MobileNav>
+        ) : (
+          <NormalNav>
+            <NavLink href="/">Home</NavLink>
+            <NavLink href="/products">Products</NavLink>
+            <NavLink href="/contact">Contact Us</NavLink>
+          </NormalNav>
+        )}
+      </div>
     </header>
   );
 };
@@ -115,7 +117,7 @@ export const MobileNav = ({ children }: { children: ReactNode }) => {
             <AlignRight className="w-6 aspect-square flex-shrink-0 text-gray-400 group-hover:text-gray-500" />
           </SheetTrigger>
 
-          <SheetContent className="flex justify-center items-center w-full min-sm:max-w-sm">
+          <SheetContent className="flex justify-center items-center w-full sm:w-full">
             <nav className="text-center flex flex-col justify-center px-4">
               {children}
             </nav>

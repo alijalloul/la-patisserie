@@ -81,7 +81,7 @@ const ProductForm = ({ product }: { product?: Product | null }) => {
         {image != null && (
           <div className="relative h-[400px] aspect-square">
             <Image
-              sizes="800px"
+              
               src={image}
               alt="Product Image"
               fill

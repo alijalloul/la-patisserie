@@ -20,9 +20,8 @@ const config = {
     },
     extend: {
       screens: {
-        "min-sm": { "max": "640px" },
-        "min-md": { "max": "768px" },
-        "min-lg": { "max": "1024px" },
+        "sm": { "max": "640px" },
+        "md": { "max": "1024px" },
       },
       colors: {
         border: "hsl(var(--border))",

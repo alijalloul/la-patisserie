@@ -1,7 +1,15 @@
 // CartSlide.tsx
 "use client";
 
+import { addProduct, decrementProduct } from "@/app/store/cartSlice";
+import {
+  selectTotalProducts,
+  selectTotalProductsPriceInCents,
+} from "@/app/store/selectors";
 import { RootState } from "@/app/store/store";
+import { CartItemType } from "@/app/store/types";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 import {
   Sheet,
   SheetClose,
@@ -12,16 +20,8 @@ import {
 } from "@/components/ui/sheet";
 import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  selectTotalProducts,
-  selectTotalProductsPriceInCents,
-} from "@/app/store/selectors";
-import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
-import { addProduct, decrementProduct } from "@/app/store/cartSlice";
-import { CartItemType } from "@/app/store/types";
 import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
 
 const CartSlide = () => {
   const cartItems = useSelector((state: RootState) => state.cart.cart);
@@ -40,7 +40,7 @@ const CartSlide = () => {
         </div>
       </SheetTrigger>
 
-      <SheetContent className="w-full flex flex-col min-sm:max-w-sm max-h-screen">
+      <SheetContent className="w-full flex flex-col sm:w-full">
         <SheetHeader className="space-y-2.5">
           <SheetTitle>Cart ({totalProducts})</SheetTitle>
         </SheetHeader>
@@ -88,7 +88,7 @@ const CartItem = ({ item }: { item: CartItemType }) => {
               src={item.image}
               alt={item.id}
               fill
-              sizes="800px"
+              
               className="object-cover"
             />
           </div>

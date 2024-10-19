@@ -39,7 +39,7 @@ const ProductsList = ({
           <CardTitle>Shopping Cart</CardTitle>
         </CardHeader>
 
-        <CardContent className="w-full flex flex-col min-sm:max-w-sm flex-grow max-h-[70vh]">
+        <CardContent className="w-full flex flex-col sm:max-w-sm flex-grow max-h-[70vh]">
           {cartItems.length > 0 ? (
             <div className="w-full flex flex-col flex-grow justify-center overflow-auto">
               <div className="pr-10 flex flex-col flex-grow overflow-y-auto scrollbar-thin scrollbar-corner-rounded-md">
@@ -134,7 +134,7 @@ const CartItem = ({ item }: { item: CartItemType }) => {
         <div className=" flex">
           <div className="flex flex-shrink-0 relative mr-2 w-20 aspect-square rounded-lg overflow-hidden">
             <Image
-              sizes="800px"
+              
               src={item.image}
               alt={item.id}
               fill
