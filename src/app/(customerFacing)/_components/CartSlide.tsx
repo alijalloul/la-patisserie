@@ -40,7 +40,7 @@ const CartSlide = () => {
         </div>
       </SheetTrigger>
 
-      <SheetContent className="w-full flex flex-col border-4">
+      <SheetContent className="w-1/3 flex flex-col border-4  sm:w-full">
         <SheetHeader className="space-y-2.5">
           <SheetTitle>Cart ({totalProducts})</SheetTitle>
         </SheetHeader>
