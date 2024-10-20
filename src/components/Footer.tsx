@@ -2,7 +2,7 @@
 
 const Footer = () => {
   return (
-    <footer className="mt-10 flex flex-col items-center justify-center p-4 bg-gray-800 text-white w-full">
+    <footer className="flex flex-col items-center justify-center p-4 bg-gray-800 text-white w-full">
       <p>
         &copy; {new Date().getFullYear()} La Patisserie. All rights reserved.
       </p>

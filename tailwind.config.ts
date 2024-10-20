@@ -23,6 +23,15 @@ const config = {
         "sm": { "max": "640px" },
         "md": { "max": "1024px" },
       },
+      transform: {
+        'style-3d': 'preserve-3d',
+      },
+      rotate: {
+        'y-180': 'rotateY(180deg)',
+      },
+      perspective: {
+        1000: '1000px',
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

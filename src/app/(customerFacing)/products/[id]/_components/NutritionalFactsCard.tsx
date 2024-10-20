@@ -6,11 +6,16 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Product } from "@prisma/client";
-import React from "react";
 
-const NutritionalFactsCard = ({ product }: { product: Product }) => {
+const NutritionalFactsCard = ({
+  product,
+  className,
+}: {
+  product: Product;
+  className: string;
+}) => {
   return (
-    <Card className="w-[400px] aspect-[5/6] rounded-l-none">
+    <Card className={className}>
       <CardHeader>
         <CardTitle>Nutritional Facts</CardTitle>
 
@@ -64,7 +69,7 @@ const NutritionFact = ({
   percent: string;
 }) => {
   return (
-    <div className="flex justify-between items-center border-y-[1px]">
+    <div className="flex justify-between items-center border-y">
       <p>{`${name} ${weight}g`}</p>
 
       <p>{`${percent}%`}</p>

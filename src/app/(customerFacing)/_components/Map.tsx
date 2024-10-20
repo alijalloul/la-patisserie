@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useRef, useEffect, useState } from "react";
-import mapboxgl, { Map as MapboxMap, Marker } from "mapbox-gl";
-import "mapbox-gl/dist/mapbox-gl.css";
 import { Button } from "@/components/ui/button";
 import { Locate } from "lucide-react";
+import mapboxgl, { Map as MapboxMap, Marker } from "mapbox-gl";
+import "mapbox-gl/dist/mapbox-gl.css";
+import React, { useEffect, useRef, useState } from "react";
 
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN!;
 
@@ -128,7 +128,7 @@ const Map: React.FC = () => {
       <div>
         <Button
           variant="outline"
-          className="absolute top-0 left-0 rounded-full border-[1px] p-2 ml-2 mt-2"
+          className="absolute top-0 left-0 rounded-full border p-2 ml-2 mt-2"
           onClick={(e) => recalibrateMapToUserLocation(e)}
         >
           <Locate />

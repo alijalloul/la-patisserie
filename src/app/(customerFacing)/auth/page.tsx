@@ -1,7 +1,13 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { useCookies } from "next-client-cookies";
@@ -58,8 +64,9 @@ const Page = () => {
     }
   };
 
-  useEffect(() => {changeHeight()}, [])
-
+  useEffect(() => {
+    changeHeight();
+  }, []);
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const { id, value } = e.target;
@@ -80,7 +87,7 @@ const Page = () => {
     setFormErrors({ fn: "", ln: "", email: "", password: "", repassword: "" });
   }
 
-  function validateForm() {
+  function validateSignUpForm() {
     const errors: Partial<FormErrors> = {};
 
     if (!formData.fn) {
@@ -107,8 +114,29 @@ const Page = () => {
     return Object.keys(errors).length === 0;
   }
 
+  function validateLogInForm() {
+    const errors: Partial<FormErrors> = {};
+
+    if (!formData.email) {
+      errors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      errors.email = "Email format is invalid";
+    }
+    if (!formData.password) {
+      errors.password = "Password is required";
+    }
+    setFormErrors(errors as FormErrors);
+    return Object.keys(errors).length === 0;
+  }
+
   async function handleSignup() {
-    if (!validateForm()) return;
+    if (!validateSignUpForm()) {
+      setInterval(() => {
+        changeHeight();
+      }, 100);
+
+      return;
+    }
 
     try {
       const response = await fetch("/api/signup", {
@@ -146,6 +174,14 @@ const Page = () => {
   }
 
   async function handleLogin() {
+    if (!validateLogInForm()) {
+      setInterval(() => {
+        changeHeight();
+      }, 100);
+
+      return;
+    }
+
     try {
       const response = await fetch("/api/login", {
         method: "POST",
@@ -205,7 +241,7 @@ const Page = () => {
           </Button>
         </>
       ) : (
-        <Tabs defaultValue="signup" className="w-[35%]  md:w-[50%] sm:w-[90%]">
+        <Tabs defaultValue="signup" className="w-[35%]  md:w-[50%] sm:!w-[90%]">
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="signup" onClick={changeHeight}>
               Sign Up
@@ -287,7 +323,11 @@ const Page = () => {
                   </CardContent>
 
                   <CardFooter>
-                    <Button id="signupButton" onClick={handleSignup} type="submit">
+                    <Button
+                      id="signupButton"
+                      onClick={handleSignup}
+                      type="submit"
+                    >
                       Sign Up
                     </Button>
                   </CardFooter>
@@ -322,7 +362,11 @@ const Page = () => {
                     />
                   </CardContent>
                   <CardFooter>
-                    <Button id="loginButton" onClick={handleLogin} type="submit">
+                    <Button
+                      id="loginButton"
+                      onClick={handleLogin}
+                      type="submit"
+                    >
                       Log In
                     </Button>
                   </CardFooter>

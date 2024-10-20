@@ -1,6 +1,8 @@
 import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
 
+import { CookiesProvider } from "next-client-cookies/server";
+
 import Footer from "@/components/Footer";
 import Head from "@/components/Head";
 import { cn } from "@/lib/utils";
@@ -17,7 +19,7 @@ export default function RootLayout({
   return (
     <StoreProvider>
       <html lang="en" suppressHydrationWarning={true}>
-       <Head />
+        <Head />
 
         <body
           className={cn(
@@ -25,7 +27,7 @@ export default function RootLayout({
             fontSans.variable
           )}
         >
-          {children}
+          <CookiesProvider> {children}</CookiesProvider>
 
           <Footer />
         </body>

@@ -42,6 +42,7 @@ const Nav = () => {
             <MobileNavLink href="/">Home</MobileNavLink>
             <MobileNavLink href="/products">Products</MobileNavLink>
             <MobileNavLink href="/contact">Contact Us</MobileNavLink>
+            <MobileNavLink href="/auth">Sign Up</MobileNavLink>
           </MobileNav>
         ) : (
           <NormalNav>
@@ -117,7 +118,7 @@ export const MobileNav = ({ children }: { children: ReactNode }) => {
             <AlignRight className="w-6 aspect-square flex-shrink-0 text-gray-400 group-hover:text-gray-500" />
           </SheetTrigger>
 
-          <SheetContent className="flex justify-center items-center w-full sm:w-full">
+          <SheetContent className="flex justify-center items-center w-full ">
             <nav className="text-center flex flex-col justify-center px-4">
               {children}
             </nav>

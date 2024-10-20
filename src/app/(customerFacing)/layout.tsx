@@ -9,10 +9,10 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className=" flex-grow flex flex-col">
+    <div className="min-h-screen flex flex-col">
       <Nav />
 
-      <div className="flex justify-center flex-1 ">
+      <div className="flex justify-center flex-1 my-5">
         <div className=" w-[90%] ">{children}</div>
       </div>
       <Toaster />

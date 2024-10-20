@@ -12,7 +12,6 @@ import Link from "next/link";
 import AddCartButton from "./AddCartButton";
 
 export const ProductCardBeta = ({ product }: { product: Product }) => {
-  
   return (
     <Card key={product.id} className="flex flex-col">
       <div className=" text-center relative flex justify-center items-center w-full aspect-[5/6] overflow-hidden group">
@@ -21,7 +20,6 @@ export const ProductCardBeta = ({ product }: { product: Product }) => {
           href={`/products/${product.id}`}
         >
           <Image
-            
             src={product.image}
             alt={product.name}
             fill

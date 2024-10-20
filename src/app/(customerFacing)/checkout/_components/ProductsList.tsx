@@ -134,7 +134,6 @@ const CartItem = ({ item }: { item: CartItemType }) => {
         <div className=" flex">
           <div className="flex flex-shrink-0 relative mr-2 w-20 aspect-square rounded-lg overflow-hidden">
             <Image
-              
               src={item.image}
               alt={item.id}
               fill
@@ -151,7 +150,7 @@ const CartItem = ({ item }: { item: CartItemType }) => {
         </div>
 
         <div className="flex flex-col w-[30%]">
-          <div className="flex justify-between items-center border-[1px] rounded-lg w-full overflow-hidden">
+          <div className="flex justify-between items-center border rounded-lg w-full overflow-hidden">
             <Button
               variant="outline"
               size="sm"

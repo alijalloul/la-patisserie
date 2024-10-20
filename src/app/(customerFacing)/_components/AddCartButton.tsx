@@ -4,10 +4,15 @@ import { addProduct } from "@/app/store/cartSlice";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { Product } from "@prisma/client";
-import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
-const AddCartButton = ({ product }: { product: Product }) => {
+const AddCartButton = ({
+  product,
+  quantity = 1,
+}: {
+  product: Product;
+  quantity?: number;
+}) => {
   const dispatch = useDispatch();
   const { toast, dismiss } = useToast();
   var toastId = "";
@@ -23,7 +28,7 @@ const AddCartButton = ({ product }: { product: Product }) => {
           dismiss(toastId);
         }, 1000);
 
-        dispatch(addProduct(product));
+        dispatch(addProduct({ ...product, quantity: quantity }));
       }}
       size="lg"
       className="w-[40%]"

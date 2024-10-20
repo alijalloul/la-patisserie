@@ -40,7 +40,7 @@ const CartSlide = () => {
         </div>
       </SheetTrigger>
 
-      <SheetContent className="w-full flex flex-col sm:w-full">
+      <SheetContent className="w-full flex flex-col border-4">
         <SheetHeader className="space-y-2.5">
           <SheetTitle>Cart ({totalProducts})</SheetTitle>
         </SheetHeader>
@@ -88,7 +88,6 @@ const CartItem = ({ item }: { item: CartItemType }) => {
               src={item.image}
               alt={item.id}
               fill
-              
               className="object-cover"
             />
           </div>
@@ -102,7 +101,7 @@ const CartItem = ({ item }: { item: CartItemType }) => {
         </div>
 
         <div className="flex flex-col w-[30%]">
-          <div className="flex justify-between items-center border-[1px] rounded-lg w-full overflow-hidden">
+          <div className="flex justify-between items-center border rounded-lg w-full overflow-hidden">
             <Button
               variant="outline"
               size="sm"
