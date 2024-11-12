@@ -1,12 +1,13 @@
 import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
 
-import { CookiesProvider } from "next-client-cookies/server";
-
 import Footer from "@/components/Footer";
 import Head from "@/components/Head";
 import { cn } from "@/lib/utils";
 import { StoreProvider } from "./store/StoreProvider";
+
+import Provider from "@/components/Provider";
+import { CookiesProvider } from "next-client-cookies/server";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -27,8 +28,9 @@ export default function RootLayout({
             fontSans.variable
           )}
         >
-          <CookiesProvider> {children}</CookiesProvider>
-
+          <Provider>
+            <CookiesProvider>{children}</CookiesProvider>
+          </Provider>
           <Footer />
         </body>
       </html>

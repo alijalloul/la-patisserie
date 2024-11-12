@@ -22,6 +22,6 @@
       "@prisma/client": ["./prisma/generated/client"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/(customerFacing)/_components/MapComponent.jsx", "src/app/(customerFacing)/checkout/_components/StripeCheckoutForm.tsx", "src/app/api/create-payment-intent/route.js", "src/app/api/auth/[...nextauth]/route.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/(customerFacing)/_components/MapComponent.jsx", "src/app/(customerFacing)/checkout/_components/StripeCheckoutForm.tsx", "src/app/api/create-payment-intent/route.js", "src/app/api/auth/[...nextauth]/route.ts"],
   "exclude": ["node_modules"]
 }

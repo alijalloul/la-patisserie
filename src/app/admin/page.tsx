@@ -6,7 +6,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import db from "@/db/db";
-import Image from "next/image";
 
 const getSalesData = async () => {
   const data = await db.order.aggregate({
