@@ -246,11 +246,8 @@ const Page = () => {
           </Button>
         </>
       ) : (
-        <div className="w-[35%]">
-          <Tabs
-            defaultValue="signup"
-            className="w-full  md:w-[50%] sm:!w-[90%]"
-          >
+        <div className="w-[35%] sm:w-full">
+          <Tabs defaultValue="signup" className="w-full ">
             <TabsList className="grid w-full grid-cols-2">
               <TabsTrigger value="signup" onClick={changeHeight}>
                 Sign Up
