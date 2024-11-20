@@ -24,6 +24,11 @@ jobs:
       - name: Check linting
         run: npm run lint
 
+      - name: Check Environment Variables
+       run: |
+          echo "POSTGRES_PRISMA_URL: $POSTGRES_PRISMA_URL"
+          echo "POSTGRES_URL_NON_POOLING: $POSTGRES_URL_NON_POOLING"
+
       - name: Build Application
         env:
           POSTGRES_PRISMA_URL: ${{ secrets.POSTGRES_PRISMA_URL }}
