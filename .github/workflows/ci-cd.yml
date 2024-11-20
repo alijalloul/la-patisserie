@@ -25,7 +25,7 @@ jobs:
         run: npm run lint
 
       - name: Check Environment Variables
-       run: |
+        run: |
           echo "POSTGRES_PRISMA_URL: $POSTGRES_PRISMA_URL"
           echo "POSTGRES_URL_NON_POOLING: $POSTGRES_URL_NON_POOLING"
 
