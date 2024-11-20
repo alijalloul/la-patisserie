@@ -121,13 +121,6 @@ declare interface BinaryTargetsEnvValue {
     native?: boolean;
 }
 
-declare interface BoundDriverAdapter extends Queryable, WithTransaction {
-    /**
-     * Optional method that returns extra connection info
-     */
-    getConnectionInfo?(): Result_4<ConnectionInfo>;
-}
-
 export declare type Call<F extends Fn, P> = (F & {
     params: P;
 })['returns'];
@@ -626,6 +619,8 @@ declare function defineExtension(ext: ExtensionArgs | ((client: Client) => Clien
 
 declare const denylist: readonly ["$connect", "$disconnect", "$on", "$transaction", "$use", "$extends"];
 
+export declare function deserializeJsonResponse(result: unknown): unknown;
+
 export declare type DevTypeMapDef = {
     meta: {
         modelProps: string;
@@ -875,7 +870,13 @@ export declare namespace DMMF {
     }
 }
 
-export declare interface DriverAdapter extends Queryable, WithTransactionDeprecated, WithTransaction {
+export declare function dmmfToRuntimeDataModel(dmmfDataModel: DMMF.Datamodel): RuntimeDataModel;
+
+export declare interface DriverAdapter extends Queryable {
+    /**
+     * Starts new transaction.
+     */
+    transactionContext(): Promise<Result_4<TransactionContext>>;
     /**
      * Optional method that returns extra connection info
      */
@@ -1140,12 +1141,15 @@ declare type EngineSpan = {
         trace_id: string;
         span_id: string;
     }[];
+    kind: EngineSpanKind;
 };
 
 declare type EngineSpanEvent = {
     span: boolean;
     spans: EngineSpan[];
 };
+
+declare type EngineSpanKind = 'client' | 'internal';
 
 declare type EnvPaths = {
     rootEnvPath: string | null;
@@ -1187,7 +1191,7 @@ declare type Error_2 = {
     message: string;
 };
 
-declare interface ErrorCapturingDriverAdapter extends BoundDriverAdapter {
+declare interface ErrorCapturingDriverAdapter extends DriverAdapter {
     readonly errorRegistry: ErrorRegistry;
 }
 
@@ -1845,6 +1849,8 @@ declare enum IsolationLevel {
 
 declare function isSkip(value: unknown): value is Skip;
 
+export declare function isTypedSql(value: unknown): value is UnknownTypedSql;
+
 export declare type ITXClientDenyList = (typeof denylist)[number];
 
 export declare const itxClientDenyList: readonly (string | symbol)[];
@@ -1882,7 +1888,7 @@ declare type JsonArgumentValue = number | string | boolean | null | RawTaggedVal
 export declare interface JsonArray extends Array<JsonValue> {
 }
 
-declare type JsonBatchQuery = {
+export declare type JsonBatchQuery = {
     batch: JsonQuery[];
     transaction?: {
         isolationLevel?: Transaction_2.IsolationLevel;
@@ -1910,7 +1916,7 @@ export declare type JsonObject = {
     [Key in string]?: JsonValue;
 };
 
-declare type JsonQuery = {
+export declare type JsonQuery = {
     modelName?: string;
     action: JsonQueryAction;
     query: JsonFieldSelection;
@@ -2837,7 +2843,7 @@ export declare type Return<T> = T extends (...args: any[]) => infer R ? R : T;
 
 declare type Runtime = "edge-routine" | "workerd" | "deno" | "lagon" | "react-native" | "netlify" | "electron" | "node" | "bun" | "edge-light" | "fastly" | "unknown";
 
-declare type RuntimeDataModel = {
+export declare type RuntimeDataModel = {
     readonly models: Record<string, RuntimeModel>;
     readonly enums: Record<string, RuntimeEnum>;
     readonly types: Record<string, RuntimeModel>;
@@ -2867,6 +2873,22 @@ export declare type SelectField<P extends SelectablePayloadFields<any, any>, K e
 
 declare type Selection_2 = Record<string, boolean | Skip | JsArgs>;
 export { Selection_2 as Selection }
+
+export declare function serializeJsonQuery({ modelName, action, args, runtimeDataModel, extensions, callsite, clientMethod, errorFormat, clientVersion, previewFeatures, globalOmit, }: SerializeParams): JsonQuery;
+
+declare type SerializeParams = {
+    runtimeDataModel: RuntimeDataModel;
+    modelName?: string;
+    action: Action;
+    args?: JsArgs;
+    extensions?: MergedExtensionsList;
+    callsite?: CallSite;
+    clientMethod: string;
+    clientVersion: string;
+    errorFormat: ErrorFormat;
+    previewFeatures: string[];
+    globalOmit?: GlobalOmitOptions;
+};
 
 declare class Skip {
     constructor(param?: symbol);
@@ -3377,21 +3399,5 @@ declare type WasmLoadingConfig = {
      */
     getQueryEngineWasmModule: () => Promise<unknown>;
 };
-
-declare interface WithTransaction extends Queryable {
-    /**
-     * Starts new transaction.
-     * If `startTransaction` is not defined, `transactionContext` must be defined.
-     */
-    transactionContext?(): Promise<Result_4<TransactionContext>>;
-}
-
-declare interface WithTransactionDeprecated extends Queryable {
-    /**
-     * Starts new transaction.
-     * @deprecated Use `transactionContext` instead.
-     */
-    startTransaction?(): Promise<Result_4<Transaction>>;
-}
 
 export { }
