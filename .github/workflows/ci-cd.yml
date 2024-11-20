@@ -25,7 +25,10 @@ jobs:
         run: npm run lint
 
       - name: Build Application
-        run: npm run build
+        env:
+            POSTGRES_PRISMA_URL: ${{ secrets.POSTGRES_PRISMA_URL }}
+            POSTGRES_URL_NON_POOLING: ${{ secrets.POSTGRES_URL_NON_POOLING }}
+          run: npm run build
 
       - name: Start Application
         run: npm run start &
