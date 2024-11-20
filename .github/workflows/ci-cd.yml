@@ -26,20 +26,14 @@ jobs:
 
       - name: Build Application
         env:
-            POSTGRES_PRISMA_URL: ${{ secrets.POSTGRES_PRISMA_URL }}
-            POSTGRES_URL_NON_POOLING: ${{ secrets.POSTGRES_URL_NON_POOLING }}
-          run: npm run build
+          POSTGRES_PRISMA_URL: ${{ secrets.POSTGRES_PRISMA_URL }}
+          POSTGRES_URL_NON_POOLING: ${{ secrets.POSTGRES_URL_NON_POOLING }}
+        run: npm run build
 
       - name: Start Application
         run: npm run start &
         env:
           NODE_ENV: test
-
-      # - name: Wait for Application to Start
-      #   uses: alexetcheverry/wait-for-it@v1
-      #   with:
-      #     url: "http://localhost:3000"
-      #     timeout: 60
 
       - name: Run Cypress Tests
         run: npm run test
