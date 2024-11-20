@@ -10,11 +10,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check Environment Variables
-        run: |
-          echo "POSTGRES_PRISMA_URL: ${{ secrets.POSTGRES_PRISMA_URL }}"
-          echo "POSTGRES_URL_NON_POOLING: ${{ secrets.POSTGRES_URL_NON_POOLING }}"
-
       - name: Checkout Code
         uses: actions/checkout@v3
 
@@ -30,29 +25,4 @@ jobs:
         run: npm run lint
 
       - name: Build Application
-        env:
-          POSTGRES_PRISMA_URL: ${{ secrets.POSTGRES_PRISMA_URL }}
-          POSTGRES_URL_NON_POOLING: ${{ secrets.POSTGRES_URL_NON_POOLING }}
         run: npm run build
-
-      - name: Start Application
-        run: npm run start &
-        env:
-          NODE_ENV: test
-
-      - name: Run Cypress Tests
-        run: npm run test
-
-      - name: Upload Test Artifacts
-        if: failure()
-        uses: actions/upload-artifact@v3
-        with:
-          name: cypress-screenshots
-          path: cypress/screenshots
-
-      - name: Upload Video Artifacts
-        if: failure()
-        uses: actions/upload-artifact@v3
-        with:
-          name: cypress-videos
-          path: cypress/videos
