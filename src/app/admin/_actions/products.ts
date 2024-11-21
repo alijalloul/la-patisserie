@@ -55,10 +55,6 @@ export const addProduct = async (
   const base64Image =
     await compressBase64Image(arrayBuffer)
 
-  console.log(
-    "Adding product with image buffer size:",
-    base64Image.length
-  ); // Debug log
 
   await db.product.create({
     data: {
@@ -108,10 +104,7 @@ export const editProduct = async (
 
   } else {
     base64Image = product.image; // Retain the old image if no new image is provided
-    console.log(
-      "No new image provided, using existing image buffer size:",
-      base64Image.length
-    ); // Debug log
+
   }
 
   await db.product.update({

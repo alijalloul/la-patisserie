@@ -6,9 +6,9 @@ import mapboxgl, { Map as MapboxMap, Marker } from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import React, { useEffect, useRef, useState } from "react";
 
-mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN!;
+const Map = ({ mapboxToken }: { mapboxToken: string }) => {
+  mapboxgl.accessToken = mapboxToken;
 
-const Map: React.FC = () => {
   const mapContainer = useRef<HTMLDivElement | null>(null);
   const map = useRef<MapboxMap | null>(null);
   const [lng, setLng] = useState<number>(35.8623);
@@ -74,32 +74,38 @@ const Map: React.FC = () => {
   }, [lng, lat, zoom]);
 
   useEffect(() => {
-    if (map.current) {
-      map.current.on("click", async (e) => {
-        const { lng, lat } = e.lngLat;
+    if (!map.current) return;
 
-        if (markerRef.current) {
-          markerRef.current.setLngLat([lng, lat]);
-        } else {
-          const newMarker = new mapboxgl.Marker({
-            draggable: true,
-          })
-            .setLngLat([lng, lat])
-            .addTo(map.current!);
+    const handleMapClick = async (e: mapboxgl.MapMouseEvent) => {
+      const { lng, lat } = e.lngLat;
 
-          markerRef.current = newMarker;
-        }
+      if (markerRef.current) {
+        markerRef.current.setLngLat([lng, lat]);
+      } else {
+        const newMarker = new mapboxgl.Marker({
+          draggable: true,
+        })
+          .setLngLat([lng, lat])
+          .addTo(map.current!);
 
-        // Fetch address based on clicked location
-        const response = await fetch(
-          `https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=${mapboxgl.accessToken}`
-        );
-        const data = await response.json();
-        if (data.features && data.features.length > 0) {
-          setAddress(data.features[0].place_name);
-        }
-      });
-    }
+        markerRef.current = newMarker;
+      }
+
+      // Fetch address based on clicked location
+      const response = await fetch(
+        `https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=${mapboxgl.accessToken}`
+      );
+      const data = await response.json();
+      if (data.features && data.features.length > 0) {
+        setAddress(data.features[0].place_name);
+      }
+    };
+
+    map.current.on("click", handleMapClick);
+
+    return () => {
+      map.current?.off("click", handleMapClick);
+    };
   }, []);
 
   const recalibrateMapToUserLocation = (

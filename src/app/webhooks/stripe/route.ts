@@ -5,8 +5,6 @@ import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
-console.log("fdsfssfegge");
-
 export async function POST(req: NextRequest) {
   const event = stripe.webhooks.constructEvent(
     await req.text(),

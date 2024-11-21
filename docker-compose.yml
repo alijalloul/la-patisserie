@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:     
+        NEXT_PUBLIC_SERVER_URL: "http://localhost:3000"
+        NEXT_PUBLIC_STRIPE_PUBLIC_KEY: "pk_test_51N3vDRHqFRMyjM9Dh7Sk4wlZjp25H9QXozEwY7JhFKZgjJE7q6WVQRREnovG41vSqhMSX9uXnoEd3xOSvbQZM25v00azJKk131"
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+

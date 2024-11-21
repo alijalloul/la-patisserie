@@ -30,8 +30,6 @@ export async function POST(request: Request): Promise<NextResponse> {
     const token = await login(email, password);
 
     if (token) {
-      console.log("token: ", token);
-
       return new NextResponse("Login successful", {
         status: 200,
         headers: {

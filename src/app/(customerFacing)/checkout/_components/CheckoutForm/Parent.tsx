@@ -2,10 +2,10 @@
 "use client";
 import { CarouselNext } from "@/components/ui/carousel";
 import { Input } from "@/components/ui/input";
-import Map from "../../_components/Map";
-import { useState } from "react";
+import React, { useState } from "react";
+import MapContainer from "./Map";
 
-const CheckoutForm = () => {
+const Parent = ({ children }: { children: React.ReactNode }) => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -111,9 +111,7 @@ const CheckoutForm = () => {
         </div>
 
         <div className="w-[45%] flex flex-col justify-between items-center">
-          <div className="w-full h-[90%]">
-            <Map />
-          </div>
+          <div className="w-full h-[90%]">{children}</div>
 
           <CarouselNext
             size="default"
@@ -128,4 +126,4 @@ const CheckoutForm = () => {
   );
 };
 
-export default CheckoutForm;
+export default Parent;
