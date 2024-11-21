@@ -8,6 +8,7 @@ on:
 jobs:
   push:
     runs-on: ubuntu-latest
+    concurrency: ci-cd-master
 
     steps:
       - name: Checkout Code
