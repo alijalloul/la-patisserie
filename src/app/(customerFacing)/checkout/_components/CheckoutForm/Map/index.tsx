@@ -5,8 +5,6 @@ import Map from "./Map";
 const MapContainer = async () => {
   const mapboxToken = await getMapboxToken();
 
-  console.log("client env", mapboxToken);
-
   return <Map mapboxToken={mapboxToken} />;
 };
 
