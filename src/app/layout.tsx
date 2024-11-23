@@ -1,4 +1,5 @@
 import { Inter as FontSans } from "next/font/google";
+import { Metadata } from "next";
 import "./globals.css";
 
 import Footer from "@/components/Footer";
@@ -13,6 +14,12 @@ const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
 });
+
+export const metadata: Metadata = {
+  title: "La Patisserie",
+  description:
+    " This project is a modern, full-featured e-commerce application for a bakery, developed using the latest technologies including Next.js 14, TypeScript, Redux, ShadCN-UI, Tailwind CSS, Prisma, PostgreSQL, Stripe, NextAuth, and Mapbox. ",
+};
 
 export default function RootLayout({
   children,
